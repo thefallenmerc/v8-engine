@@ -13,7 +13,7 @@ const logger = require('morgan');
 /**
  * Import all routers
  */
-const apiRoutes = require('./routes/api');
+const routerProvider = require('./config/routes');
 
 /**
  * Read from dotenv
@@ -76,7 +76,7 @@ app.use(cors());
 /**
  * Use All Routes
  */
-app.use('/api/v1', apiRoutes);
+app.use('/', routerProvider);
 
 /**
  * default path
