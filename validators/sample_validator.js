@@ -21,7 +21,7 @@ class SampleValidator extends Validator {
    * @param {express.Next} next 
    */
   static middleware(req, res, next) {
-    const validator = new LoginValidator(req.body);
+    const validator = new SampleValidator(req.body);
     // check if data is valid
     if (validator.fails()) {
       // return error in case data invalid
