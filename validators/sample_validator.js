@@ -28,7 +28,7 @@ class SampleValidator extends Validator {
       return res.json(validator.errors());
     } else {
       // set validated values a req.body
-      req.body = validator.validated;
+      req.body = { ...validator.validated };
       // continue with next middleware
       next();
     }
