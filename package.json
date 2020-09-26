@@ -32,5 +32,8 @@
     "validatorjs": "^3.19.0",
     "web-push": "^3.4.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chalk": "^4.1.0",
+    "enquirer": "^2.3.6"
+  }
 }
