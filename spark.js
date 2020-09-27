@@ -1,11 +1,14 @@
 const chalk = require('chalk');
-const { signature } = require('./commands/test-command');
 const app = require('./config/app');
-const commander = require('./config/commander');
+const Commander = require('./config/commander');
+
 
 init();
 
-function init() {
+async function init() {
+
+    const commander = new Commander()
+    await commander.init(__dirname);
 
     const [executor, currentFile, command, ...args] = process.argv;
 
@@ -22,19 +25,19 @@ function init() {
     }
 
     // check if command has the command registered
-    if (!commander.hasOwnProperty(command)) {
+    if (!commander.commands.hasOwnProperty(command)) {
         console.log(chalk.red('Command ' + command + ' not found!'));
         return 1;
     }
 
     // handle the command
-    commander[command].handle(args); // should return 0 for failure 1 for success
+    commander.commands[command].handle(args, __dirname); // should return 0 for failure 1 for success
 
     return 0;
 }
 
-function handleSystemCommands(command, args) {
-    switch(command) {
+function handleSystemCommands(command, args, commander) {
+    switch (command) {
         case "version":
             console.log(chalk.green(app.version.toFixed(1)));
             break;
@@ -45,8 +48,8 @@ function handleSystemCommands(command, args) {
             break;
         case "list":
             console.log(chalk.white("--------------------------------"));
-            for(const signature in commander) {
-                console.log(chalk.green(signature) + chalk.white(": \t\t\t " + commander[signature].description));
+            for (const signature in commander.commands) {
+                console.log(chalk.green(signature) + chalk.white(": \t\t\t " + commander.commands[signature].description));
             }
             break;
         default:
