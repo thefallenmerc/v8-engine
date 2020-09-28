@@ -32,7 +32,7 @@ const MakeCommandCommand = {
             const templateContent = (await fs.readFile(templateFile, { encoding: "utf-8" })).replace(/__COMMAND_NAME__/g, commandName);
             // make changes
             await fs.writeFile(filename, templateContent);
-            console.log(chalk.green("Command created successfully, register this into config/commander to start using it."));
+            console.log(chalk.green("Command created successfully."));
             return 1;
         }
     }
