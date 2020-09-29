@@ -2,30 +2,6 @@ const mongoose = require("mongoose");
 
 const Schema = new mongoose.Schema(
     {
-        name: {
-            type: String,
-            required: true
-        },
-        mobile: {
-            required: true,
-            type: String,
-            trim: true,
-            validate: {
-                validator: value => {
-                    return /[0-9]{10}/.test(value);
-                }
-            }
-        },
-        email: {
-            required: true,
-            trim: true,
-            type: String
-        },
-        password: {
-            required: true,
-            trim: true,
-            type: String
-        },
         isActive: {
             type: Boolean,
             required: false,
@@ -61,4 +37,4 @@ const Schema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model("User", Schema);
+module.exports = mongoose.model("__MODEL_NAME__", Schema);

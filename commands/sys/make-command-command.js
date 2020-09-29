@@ -1,6 +1,7 @@
 const chalk = require("chalk")
 const path = require('path')
-const { promises: fs } = require('fs')
+const { promises: fs } = require('fs');
+const replicator = require("./lib/replicator");
 
 const MakeCommandCommand = {
     // Command signature
@@ -21,20 +22,12 @@ const MakeCommandCommand = {
         const commandDir = path.join(dirname, 'commands');
         // generate filename
         const filename = path.join(commandDir, commandName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase() + ".js");
-        // check if file exists
-        try {
-            const stats = await fs.stat(filename);
-            console.log(chalk.red("Command with similiar name exists"));
-            return 0
-        } catch (error) {
-            // get template content
-            const templateFile = path.join(__dirname, 'templates', 'command.jstemplate');
-            const templateContent = (await fs.readFile(templateFile, { encoding: "utf-8" })).replace(/__COMMAND_NAME__/g, commandName);
-            // make changes
-            await fs.writeFile(filename, templateContent);
-            console.log(chalk.green("Command created successfully."));
-            return 1;
-        }
+        // get template content
+        const templateFile = path.join(__dirname, 'templates', 'command.jstemplate');
+
+        return await replicator(commandDir, filename, templateFile, "Command", content => {
+            return content.replace(/__COMMAND_NAME__/g, commandName);
+        });
     }
 };
 

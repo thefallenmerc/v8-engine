@@ -1,6 +1,7 @@
 const chalk = require("chalk");
 const path = require('path');
-const {promises: fs} = require('fs');
+const { promises: fs } = require('fs');
+const replicator = require("./lib/replicator");
 
 const MakeController = {
     // Command signature
@@ -21,21 +22,12 @@ const MakeController = {
         const controllerDir = path.join(dirname, 'controllers');
         // generate filename
         const filename = path.join(controllerDir, controllerName.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase() + ".js");
-        // check if file exists
-        try {
-            const stats = await fs.stat(filename);
-            console.log(chalk.red("Controller with similiar name exists"));
-            return 0
-        } catch (error) {
-            // get template content
-            const templateFile = path.join(__dirname, 'templates', 'controller.jstemplate');
-            const templateContent = (await fs.readFile(templateFile, { encoding: "utf-8" })).replace(/__CONTROLLER_NAME__/g, controllerName);
-            // make changes
-            await fs.writeFile(filename, templateContent);
-            console.log(chalk.green("Controller created successfully."));
-            return 1;
-        }
-        return 1;
+        // get template content
+        const templateFile = path.join(__dirname, 'templates', 'controller.jstemplate');
+
+        return await replicator(controllerDir, filename, templateFile, "Controller", content => {
+            return content.replace(/__CONTROLLER_NAME__/g, controllerName);
+        });
     }
 };
 
