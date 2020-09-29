@@ -10,3 +10,7 @@ The simplest framework for NodeJS
 - cron support
 - mongoDB support
 - spark CLI added
+
+
+### TODO
+- add dir while make things if not already there
