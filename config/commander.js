@@ -1,8 +1,5 @@
 const path = require('path');
 const { promises: fs } = require('fs');
-
-const MakeCommandCommand = require('../commands/sys/make-command-command');
-const SampleCommand = require('../commands/sample-command');
 const { dirname } = require('path');
 
 class Commander {

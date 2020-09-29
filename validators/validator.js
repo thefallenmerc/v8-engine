@@ -3,7 +3,7 @@
 const ValidatorJS = require("validatorjs");
 
 /**
- * Create Company Validator
+ * Create Base Validator, Do not touch
  */
 class Validator {
     /**
