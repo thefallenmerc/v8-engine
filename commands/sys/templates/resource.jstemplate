@@ -1,6 +1,6 @@
 const Resource = require('./resource');
 
-module.exports = class SampleResource extends Resource {
+module.exports = class __RESOURCE_NAME__ extends Resource {
 
     format(resource) {
         return resource;
