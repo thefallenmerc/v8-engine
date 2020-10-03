@@ -1,4 +1,4 @@
-const transporter = require('../config/mail');
+const Transporter = require('../config/mail');
 
 module.exports = class Mail {
     /**
@@ -11,7 +11,7 @@ module.exports = class Mail {
      * 
      */
     constructor(options = {
-        from : null, to: '', subject : 'New Mail', text : '', html : ''
+        from: null, to: '', subject: 'New Mail', text: '', html: ''
     }, other = {}) {
         this.from = options.from || process.env.MAIL_USER;
         this.to = options.to;
@@ -20,13 +20,14 @@ module.exports = class Mail {
         this.html = options.html;
 
         this.other = other;
-        
+
         this.prepare();
     }
 
-    prepare() {}
-    
+    prepare() { }
+
     send() {
+        const transporter = new Transporter();
         return transporter.sendMail({
             from: this.from,
             to: this.to,
@@ -34,7 +35,8 @@ module.exports = class Mail {
             text: this.text,
             html: this.html
         }).catch(err => {
-            console.log('error occured sending mail');
+            // TODO: Log error
+            throw err;
         });
     }
 }
