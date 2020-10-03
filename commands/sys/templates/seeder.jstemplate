@@ -1,0 +1,12 @@
+module.exports = class __SEEDER_NAME__ {
+    /**
+     * Implement the functionality to drop the model
+     */
+    static drop() {
+    }
+    /**
+     * Implement the functionality to seed the model
+     */
+    static seed() {
+    }
+};
