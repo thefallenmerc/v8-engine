@@ -1,6 +1,26 @@
 "use strict";
 
+const Mongoose = require("mongoose");
 const ValidatorJS = require("validatorjs");
+
+// register a rule for mongoId
+ValidatorJS.register('mongoid', function (value) {
+    return Mongoose.isValidObjectId(value);
+}, 'The :attribute is not a valid id');
+
+// register a rule for digits (actual one doesnt work on numerics)
+ValidatorJS.register('digit',
+    function (value, requirement) {
+        const digit = parseInt(requirement);
+        return value.toString().trim().length === digit;
+    },
+    'The :attribute is not :digit digits.',
+    function (_template, rule, _getAttributeName) {
+        const parameters = rule.getParameters();
+        return {
+            digit: parameters[0]
+        };
+    });
 
 /**
  * Create Base Validator, Do not touch
