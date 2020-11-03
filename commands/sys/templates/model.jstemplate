@@ -12,12 +12,12 @@ const Schema = new mongoose.Schema(
             type: Boolean
         },
         createdBy: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.ObjectId,
             required: false,
             ref: 'User'
         },
         updatedBy: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.ObjectId,
             required: false,
             ref: 'User'
         }
