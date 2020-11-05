@@ -6,3 +6,5 @@ public/uploads/images/*
 public/uploads/files/*
 .env
 storage/*
+tmp
+.idea
