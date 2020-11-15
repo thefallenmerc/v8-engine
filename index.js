@@ -11,14 +11,14 @@ const cors = require('cors');
 const logger = require('morgan');
 
 /**
- * Import all routers
- */
-const routerProvider = require('./config/routes');
-
-/**
  * Read from dotenv
  */
 env.config();
+
+/**
+ * Import all routers
+ */
+const routerProvider = require('./config/routes');
 
 /**
  * Enable global helpers
@@ -28,7 +28,7 @@ require('./config/global');
 /**
  * Initialize the database
  */
-const db = require("./config/database");
+const db = require("./config/database")();
 
 /**
  * Enable cron
@@ -53,7 +53,9 @@ const port = process.env.PORT || 1000;
 /**
  * Initialize Logger
  */
-app.use(logger('dev'));
+if (process.env.NODE_ENV !== "test") {
+  app.use(logger('dev'));
+}
 
 /**
  * Static Path
