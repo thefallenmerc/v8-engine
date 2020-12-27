@@ -1,0 +1,14 @@
+const Mail = require('./mail');
+
+module.exports = class __MODEL_NAME__ extends Mail {
+
+    /**
+     * Change your options here
+     * * this.subject
+     * * this.html
+     * * this.other
+     */
+    prepare() {
+        //
+    }
+}
