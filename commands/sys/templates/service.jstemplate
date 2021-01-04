@@ -1,0 +1,11 @@
+const Mail = require('./mail');
+
+module.exports = class __SERVICE_NAME__ {
+
+    /**
+     * Add your static methods here
+     */
+     static async doSomething() {
+         
+     }
+}
