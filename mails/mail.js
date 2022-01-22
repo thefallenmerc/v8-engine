@@ -1,4 +1,5 @@
 const Transporter = require('../config/mail');
+const { ErrorLoggerService, LOGGER_ERROR_TYPES } = require('../services/error-logger-service');
 
 module.exports = class Mail {
     /**
@@ -26,6 +27,12 @@ module.exports = class Mail {
 
     prepare() { }
 
+    // render the email as html
+    render(res) {
+        res.header('Content-Type', 'text/html');
+        return res.send(this.html);
+    }
+
     send() {
         const transporter = new Transporter();
         return transporter.sendMail({
@@ -35,7 +42,7 @@ module.exports = class Mail {
             text: this.text,
             html: this.html
         }).catch(err => {
-            // TODO: Log error
+            ErrorLoggerService.logErrorPlain(LOGGER_ERROR_TYPES.MAIL_SEND_FAILED, "", err.message, err);
             throw err;
         });
     }

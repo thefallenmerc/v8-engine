@@ -4,9 +4,10 @@
  * Module dependencies.
  */
 
-var app = require('../index');
+var buildApp = require('../index');
 var debug = require('debug')('express-generator-test:server');
-var http = require('http');
+
+const [server, app] = buildApp();
 
 /**
  * Get port from environment and store in Express.
@@ -14,12 +15,6 @@ var http = require('http');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -87,4 +82,5 @@ function onListening() {
         ? 'pipe ' + addr
         : 'port ' + addr.port;
     debug('Listening on ' + bind);
+    console.log('Listening on ' + bind);
 }

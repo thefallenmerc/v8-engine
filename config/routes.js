@@ -1,14 +1,23 @@
 const express = require('express');
+const SocketMiddleware = require('../middlewares/socket-middleware');
 
 const apiRouter = require('../routes/api');
 const webRouter = require('../routes/web');
 
-const router = express.Router();
+function routeProvider(io = null) {
+    const router = express.Router();
 
-/**
- * Load all the routes here
- */
-router.use('/api', apiRouter);
-router.use('/', webRouter);
+    // Add socket to request
+    router.use(SocketMiddleware(io));
 
-module.exports = router;
+    /**
+     * Load all the routes here
+     */
+    router.use('/api', apiRouter);
+    router.use('/', webRouter);
+
+    // return router
+    return router;
+}
+
+module.exports = routeProvider;

@@ -5,6 +5,7 @@ const ValidatorJS = require("validatorjs");
 
 // register a rule for mongoId
 ValidatorJS.register('mongoid', function (value) {
+    if (!value) return true;
     return Mongoose.isValidObjectId(value);
 }, 'The :attribute is not a valid id');
 
